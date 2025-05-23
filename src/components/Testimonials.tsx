@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   
   const testimonials = [
     {
@@ -33,12 +34,24 @@ const Testimonials = () => {
     }
   ];
 
+  const changeTestimonial = (newIndex: number) => {
+    if (isAnimating || newIndex === currentTestimonial) return;
+    
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentTestimonial(newIndex);
+      setTimeout(() => setIsAnimating(false), 50);
+    }, 150);
+  };
+
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    const newIndex = (currentTestimonial + 1) % testimonials.length;
+    changeTestimonial(newIndex);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    const newIndex = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+    changeTestimonial(newIndex);
   };
 
   return (
@@ -53,7 +66,9 @@ const Testimonials = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 animate-scale-in">
             <CardContent className="p-8 lg:p-12">
-              <div className="flex flex-col items-center text-center">
+              <div className={`flex flex-col items-center text-center transition-all duration-300 ${
+                isAnimating ? 'opacity-0 transform translate-x-4' : 'opacity-100 transform translate-x-0'
+              }`}>
                 {/* Avatar */}
                 <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6 animate-bounce-slow">
                   {testimonials[currentTestimonial].avatar}
@@ -89,6 +104,7 @@ const Testimonials = () => {
                     variant="outline" 
                     onClick={prevTestimonial}
                     className="rounded-full hover-scale"
+                    disabled={isAnimating}
                   >
                     ←
                   </Button>
@@ -96,8 +112,7 @@ const Testimonials = () => {
                     variant="outline" 
                     onClick={nextTestimonial}
                     className="rounded-full hover-scale"
-                  >
-                    →
+                    disabled={isAnimating}
                   </Button>
                 </div>
                 
@@ -106,7 +121,8 @@ const Testimonials = () => {
                   {testimonials.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentTestimonial(index)}
+                      onClick={() => changeTestimonial(index)}
+                      disabled={isAnimating}
                       className={`w-3 h-3 rounded-full transition-all duration-200 ${
                         index === currentTestimonial 
                           ? 'bg-orange-500 scale-125' 
