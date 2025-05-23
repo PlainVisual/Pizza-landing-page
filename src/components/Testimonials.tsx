@@ -113,6 +113,8 @@ const Testimonials = () => {
                     onClick={nextTestimonial}
                     className="rounded-full hover-scale"
                     disabled={isAnimating}
+                  >
+                    →
                   </Button>
                 </div>
                 
