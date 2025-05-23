@@ -15,6 +15,16 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
@@ -29,10 +39,30 @@ const Header = () => {
           </div>
           
           <nav className="hidden md:flex space-x-8 animate-slide-in-right">
-            <a href="#about" className="text-gray-700 hover:text-orange-500 transition-colors duration-200">About</a>
-            <a href="#classes" className="text-gray-700 hover:text-orange-500 transition-colors duration-200">Class Details</a>
-            <a href="#testimonials" className="text-gray-700 hover:text-orange-500 transition-colors duration-200">Testimonials</a>
-            <a href="#contact" className="text-gray-700 hover:text-orange-500 transition-colors duration-200">Contact</a>
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="text-gray-700 hover:text-orange-500 transition-colors duration-200"
+            >
+              Home
+            </button>
+            <button 
+              onClick={() => scrollToSection('features')}
+              className="text-gray-700 hover:text-orange-500 transition-colors duration-200"
+            >
+              Class Details
+            </button>
+            <button 
+              onClick={() => scrollToSection('testimonials')}
+              className="text-gray-700 hover:text-orange-500 transition-colors duration-200"
+            >
+              Testimonials
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="text-gray-700 hover:text-orange-500 transition-colors duration-200"
+            >
+              Contact
+            </button>
           </nav>
           
           <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white px-6 py-2 rounded-full hover-scale animate-fade-in">
