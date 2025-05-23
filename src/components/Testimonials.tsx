@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -40,8 +39,8 @@ const Testimonials = () => {
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentTestimonial(newIndex);
-      setTimeout(() => setIsAnimating(false), 50);
-    }, 150);
+      setTimeout(() => setIsAnimating(false), 100);
+    }, 300);
   };
 
   const nextTestimonial = () => {
@@ -66,8 +65,8 @@ const Testimonials = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 animate-scale-in">
             <CardContent className="p-8 lg:p-12">
-              <div className={`flex flex-col items-center text-center transition-all duration-300 ${
-                isAnimating ? 'opacity-0 transform translate-x-4' : 'opacity-100 transform translate-x-0'
+              <div className={`flex flex-col items-center text-center transition-all duration-500 ease-in-out ${
+                isAnimating ? 'opacity-0 transform translate-x-8 scale-95' : 'opacity-100 transform translate-x-0 scale-100'
               }`}>
                 {/* Avatar */}
                 <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6 animate-bounce-slow">
@@ -103,7 +102,7 @@ const Testimonials = () => {
                   <Button 
                     variant="outline" 
                     onClick={prevTestimonial}
-                    className="rounded-full hover-scale"
+                    className="rounded-full hover-scale transition-all duration-200"
                     disabled={isAnimating}
                   >
                     ←
@@ -111,7 +110,7 @@ const Testimonials = () => {
                   <Button 
                     variant="outline" 
                     onClick={nextTestimonial}
-                    className="rounded-full hover-scale"
+                    className="rounded-full hover-scale transition-all duration-200"
                     disabled={isAnimating}
                   >
                     →
@@ -125,7 +124,7 @@ const Testimonials = () => {
                       key={index}
                       onClick={() => changeTestimonial(index)}
                       disabled={isAnimating}
-                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ease-in-out ${
                         index === currentTestimonial 
                           ? 'bg-orange-500 scale-125' 
                           : 'bg-gray-300 hover:bg-gray-400'
